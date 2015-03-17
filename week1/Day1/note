@@ -1,0 +1,30 @@
+INTRO:
+1. ip: 123.57.143.189
+2. write by javascript which run on the server side
+3. Why nodeJS? event-drive and unblock IO.
+4. Single Process running.
+5. module development by using the COMMONJS
+6. Event drive results in asynchronous programming.
+7. This asynchronous programming accomplished by the event loop:
+   mainly two functions: 1) event detection 2) event handler
+   At most one event handler is running at any given time
+   Any event handler will run to completion without being interrupt
+8. Because of closure, event-driven programming doesn't need to keep the state.
+
+MODULE LOAD:
+1. a core module -> loading a file module(absolute or relative path) -> loading a folder module(first find the main in packjson, if not, find the index.js -> find inside the node_module folder up to the root node module.
+2. The module will be cached as the first time when they are loaded.
+   require() it is an synchronous function.
+
+MAIN MODULE:
+  buffer, console, events, fs, http, net, querystring, repl(Read, Evaluate, Print, Loop), stream, url, util
+  Buffer, setTimeOut, clearTimeOut, setInterval, clearInterval, require, module and process object, (global) object
+
+REPL:
+ the same with the eval() function, it evaluate the js as a string
+ _ refer the the previous return value
+ CODE
+    var repl = require('repl');
+    var server = repl.start({});
+    var con = server.context;
+
