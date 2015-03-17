@@ -28,3 +28,57 @@ REPL:
     var server = repl.start({});
     var con = server.context;
 
+SCHEDULE:
+   1. process.nextTick():
+   Once the current event loop turn runs to completion, call the callback function.
+
+   This is not a simple alias to setTimeout(fn, 0), it's much more efficient. It runs before any additional I/O events (including timers) fire in subsequent ticks of the event loop.
+   2. setImmediate()
+   To schedule the "immediate" execution of callback after I/O events callbacks and before setTimeout and setInterval . Returns an immediateObject for possible use with clearImmediate(). Optionally you can also pass arguments to the callback.
+
+   Callbacks for immediates are queued in the order in which they were created. The entire callback queue is processed every event loop iteration. If you queue an immediate from inside an executing callback, that immediate won't fire until the next event loop iteration.
+   3. setTimeout(function(){}, 0)
+   setTimeout uses a js runtime that has its own scheduling queue.
+   And the process.nextTick specify the node event loop.
+
+CONSOLE:
+   1. console.log, call also use as the printf-like way
+   2. console.error //print to stderr
+   3. console.warn  //same as 2
+   4. console.time()
+   5. console.timeEnd()
+   6. console.assert()
+
+   require.main refer the current module
+   module itself module
+   Note here:
+   Accessing the main module#
+   When a file is run directly from Node, require.main is set to its module. That means that you can determine whether a file has been run directly by testing
+
+   require.main === module
+   For a file foo.js, this will be true if run via node foo.js, but false if run by require('./foo').
+
+   Because module provides a filename property (normally equivalent to __filename), the entry point of the current application can be obtained by checking require.main.filename.
+
+REQUIRE:
+  1. require.resolve() (get the filename of the current module)
+  2. delete require.cache[p]
+  3. __dirname, current mode path
+  4. __filename, path + file
+
+EVENT:
+Class: events.EventEmitter
+emitter.addListener(event, listener)
+emitter.on(event, listener)
+emitter.once(event, listener)
+emitter.removeListener(event, listener)
+emitter.removeAllListeners([event])
+emitter.setMaxListeners(n)
+EventEmitter.defaultMaxListeners
+emitter.listeners(event)
+emitter.emit(event[, arg1][, arg2][, ...])
+Class Method: EventEmitter.listenerCount(emitter, event)
+Event: 'newListener'
+Event: 'removeListener'
+
+var arr = Array.prototype.slice.apply(arguments) // note here the arguments changes to array
