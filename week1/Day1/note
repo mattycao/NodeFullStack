@@ -82,3 +82,29 @@ Event: 'newListener'
 Event: 'removeListener'
 
 var arr = Array.prototype.slice.apply(arguments) // note here the arguments changes to array
+
+MODULE AND PACKAGE:
+1. if we want add an attribute, then exports.name = 'dong';
+2. exports == module.exports, if we want give it an object, if we:
+   exports = Person; // only give the exports a new value, but the module.exports still refers to the empty object
+   so if we want exports an new Object constructor, we need use this:
+   module.exports = Person;
+
+PACKAGE:
+1. bin(binary), lib(javascript), doc(document), test
+
+BUFFER:
+1. not in the VM memory heap, so not move around the garbage collection. More like a string pool.
+2. string.length is ≠ buf.length
+3. buf.copy(target, targetStart, sourceStart, sourceEnd);
+4. Buffer.byteLength(string[, encoding])
+5. buf.fill(value[, offset][, end])#
+6. buf.write(string[, offset][, length][, encoding])#
+7. Buffer.concat(list[, totalLength])# not a good way to copy together
+8. Class Method: Buffer.isEncoding(encoding)
+   Class Method: Buffer.isBuffer(obj)
+   Class Method: Buffer.byteLength(string[, encoding])
+   Class Method: Buffer.concat(list[, totalLength])
+   Class Method: Buffer.compare(buf1, buf2)
+
+

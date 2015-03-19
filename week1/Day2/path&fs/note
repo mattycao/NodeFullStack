@@ -1,0 +1,72 @@
+PATH:
+1. just like unix, a file descriptor handle in node is an integer representing the index of an entry on the process file.
+   1 -> standard input 2-> standard output 3-> standard error
+
+2. path module is handling the path in string. None of the method inside check whether paths are valid.
+
+3. path.normalize(p)
+   take care of the .. and . and // parts.
+4. path.join(arg1, arg2 ...)
+   join and also normalize it
+5. path.resolve([from ...], to)
+   resolve to to an absolute path,
+    example:
+        1) path.resolve('/foo/path', './baz')  // /foo/path/baz
+        2) path.resolve('/foo/path', '/temp') // /temp
+        3) path.resolve('foo/path', 'temp') // __dirname + '/foo/path/temp
+6. path.isAbsolute(path)
+7. path.relative(from, to)
+8. Here are the methods used to extract the part of path:
+   1) path.dirname(p)   // return the directory name of the path
+   2) path.basename(p[, ext]) // return the basename of the path, like index.html, the ext will be cut if added.
+      example:
+      path.basename('/foo/bar/baz/asdf/quux.html')
+      // returns
+      'quux.html'
+
+      path.basename('/foo/bar/baz/asdf/quux.html', '.html')
+      // returns
+      'quux'
+   3) path.extname(p)
+      example:
+       path.extname('index.html')
+       // returns
+       '.html'
+
+       path.extname('index.coffee.md')
+       // returns
+       '.md'
+
+       path.extname('index.')
+       // returns
+       '.'
+
+       path.extname('index')
+       // returns
+       ''
+   4) path.sep  // the platform-specific file separator. '\\' in windows and '/' in *nix
+   5) path.delimiter
+   6) path.parse(pathString), will return an path object
+       An example on *nix:
+
+       path.parse('/home/user/dir/file.txt')
+       // returns
+       {
+           root : "/",
+           dir : "/home/user/dir",
+           base : "file.txt",
+           ext : ".txt",
+           name : "file"
+       }
+       An example on Windows:
+
+       path.parse('C:\\path\\dir\\index.html')
+       // returns
+       {
+           root : "C:\",
+           dir : "C:\path\dir",
+           base : "index.html",
+           ext : ".html",
+           name : "index"
+       }
+    7)

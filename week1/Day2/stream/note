@@ -1,0 +1,145 @@
+STREAM:
+1. fs.createReadStream(path, [, options])
+   default of options:
+    { flags: 'r',
+      encoding: null,
+      fd: null,
+      mode: 0666,
+      autoClose: true
+    }
+    options can include start and end values to read a range of bytes from the file instead of the entire file. Both start and end are inclusive and start at 0. The encoding can be 'utf8', 'ascii', or 'base64'.
+
+    If fd is specified, ReadStream will ignore the path argument and will use the specified file descriptor. This means that no open event will be emitted.
+
+    If autoClose is false, then the file descriptor won't be closed, even if there's an error. It is your responsibility to close it and make sure there's no file descriptor leak. If autoClose is set to true (default behavior), on error or end the file descriptor will be closed automatically.
+
+    if not specified, the default encoding is nothing, so the data will be buffer.
+
+    we can use the:
+
+     stream.setEncoding('utf8');  // to set the encoding method and also set it in the options
+2. fs.createWriteStream(path[, options])
+   default of options:
+   { flags: 'w',
+     encoding: null,
+     fd: null,
+     mode: 0666
+   }
+   options may also include a start option to allow writing data at some position past the beginning of the file. Modifying a file rather than replacing it may require a flags mode of r+ rather than the default mode w.
+
+   Like ReadStream above, if fd is specified, WriteStream will ignore the path argument and will use the specified file descriptor. This means that no open event will be emitted.
+
+   both of the return stream object has an event: open.
+
+   file.bytesWritten#
+   The number of bytes written so far. Does not include data that is still queued for writing.
+
+3. 1 return an stream.Readable class:
+   data comes out of a Readable stream.
+
+   a readable stream will not start emit the data until you indicate that you are ready to accept it.
+
+   Readable streams have two modes: the flowing mode and the paused mode.
+   Note: If no data event handlers are attached, and there are no pipe() destinations, and the stream is switched into flowing mode, then data will be lost.
+   In the flowing mode, the data will be read from the underlying system as fast as possible.
+   In the paused mode, you must explicitly call stream.read() to get chunks of data out.
+   Note: Streams start out in paused mode.
+
+   You can switch to flowing mode by doing any of the following:
+
+     1) Adding a 'data' event handler to listen for data.
+     2) Calling the resume() method to explicitly open the flow.
+     3) Calling the pipe() method to send the data to a Writable.
+   You can switch back to paused mode by doing either of the following:
+     1) If there are no pipe destinations, by calling the pause() method.
+     2) If there are pipe destinations, by removing any 'data' event handlers, and removing all pipe destinations by calling the unpipe() method.
+
+   Note that, for backwards compatibility reasons, removing 'data' event handlers will not automatically pause the stream. Also, if there are piped destinations, then calling pause() will not guarantee that the stream will remain paused once those destinations drain and ask for more data.
+
+READABLE
+4. Readable stream EVENT:
+    1) readable, cause some data to be read into the internal buffer from the underlying system.
+                 once the buffer is drained, a readable vent will fire again if has data.
+       Note:
+            The maximum data read is 64KB. For example, if > 64KB, it will trigger twice.(The last time to check weather the data is finished or not)
+                                                        if > 64KB, and only read some of it. Only trigger once.
+                                                        If < 64KB, only read some of it, will trigger twice, since it touch the end of the file.
+
+
+    2) data, transfer to the flow mode and return the buffer/String. (64kb)
+       If you just want to get all the data out of the stream AFAP. It is the way.
+       CODE:
+        read.on('data', function(chunk) {
+            console.log('Got chunk length %d.', chunk.length;
+        }
+
+    3) end, will fire if no more data to be read.
+
+    4) close, Emitted when the underlying resource (for example, the backing file descriptor) has been closed. Not all streams will emit this.
+
+    5) error
+
+5. readable.read([size])
+   size -> number
+   return string | buffer | null
+   This method can only be called in the pause mode.
+   If finish, will return null.
+    CODE:
+         var readable = getReadableStreamSomehow();
+         readable.on('readable', function() {
+           var chunk;
+           while (null !== (chunk = readable.read())) {
+             console.log('got %d bytes of data', chunk.length);
+           }
+         });
+
+6. readable.setEncoding(encoding)
+    This method will take care of delivering a character only when it is complete in byte.
+
+7. readable.resume()
+   resume to emit the data event, and return to the flowing mode
+
+8. readable.pause()
+   stop emit the data events and switch out of the flowing mode
+   the avaliable data will be buffered.
+
+9. readable,isPaused()
+
+10. readable.pipe(destionation, [, options])
+    options:
+            end boolean End the write when the reader ends. The default is true.
+
+11. reader.pipe(writer, { end: false }); // Note that process.stderr and process.stdout are never closed until the process exits,
+
+12. readable.unpipe([destination])
+
+WRITABLE
+stream.writable
+1. writable.write(chunk[, encoding][, callback])#
+
+   chunk String | Buffer The data to write
+   encoding String The encoding, if chunk is a String
+   callback Function Callback for when this chunk of data is flushed
+   Returns: Boolean True if the data was handled completely.
+
+2. event: drain,
+
+3. event: finish, When the end() method has been called, and all data has been flushed to the underlying system, this event is emitted.
+
+4. event: pipe, unpipe, This is emitted whenever the pipe() method is called on a readable stream, adding this writable to its set of destinations.
+
+5. writable.cork() [> buffering
+
+6. writable.uncork() -> flush all data
+
+7. writable.setDefaultEncoding(encoding)
+
+8. writable.end([chunk][, encoding][, callback])
+
+   chunk String | Buffer Optional data to write
+   encoding String The encoding, if chunk is a String
+   callback Function Optional callback for when the stream is finished
+
+   call write after end is not valid
+
+9. event: error

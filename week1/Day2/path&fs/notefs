@@ -1,0 +1,13 @@
+File System:
+1. in path, it will not determine the validation of the path. In fs, it offers an method
+   fs.exists()
+   This is asynchronized I/O.
+   so it need be used as follow:
+      fs.exists('/etc/passwd', function (exists) {
+        util.debug(exists ? "it's there" : "no passwd!");
+      });
+
+   will be deprecated, since just use the fs.open and handle the error in there.
+
+ 2. Query the file stats:
+   1)
