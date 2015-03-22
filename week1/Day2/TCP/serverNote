@@ -2,6 +2,18 @@ TCP server:
 1. net.createServer([options][, connectionListener])#
    Creates a new TCP server. The connectionListener argument is automatically set as a listener for the 'connection' event.
 
+   Creates a new TCP server. The connectionListener argument is automatically set as a listener for the 'connection' event.
+
+   options is an object with the following defaults:
+
+   {
+     allowHalfOpen: false,
+     pauseOnConnect: false
+   }
+   If allowHalfOpen is true, then the socket won't automatically send a FIN packet when the other end of the socket sends a FIN packet. The socket becomes non-readable, but still writable. You should call the end() method explicitly. See 'end' event for more information.
+
+   If pauseOnConnect is true, then the socket associated with each incoming connection will be paused, and no data will be read from its handle. This allows connections to be passed between processes without any data being read by the original process. To begin reading data from a paused socket, call resume().
+
 2. it will return an net.Server class. So
     1) server.listen(port[, host][, backlog][, callback])
        Begin accepting connections on the specified port and host. If the host is omitted, the server will accept connections directed to any IPv4 address (INADDR_ANY). A port value of zero will assign a random port.
@@ -10,7 +22,7 @@ TCP server:
 
        This function is asynchronous. When the server has been bound, 'listening' event will be emitted. The last parameter callback will be added as an listener for the 'listening' event.
 
-    2) server.close([callback])
+    2) server.close([callback])  // note here the close may mot emit the close event. note the difference
        Stops the server from accepting new connections and keeps existing connections. This function is asynchronous, the server is finally closed when all connections are ended and the server emits a 'close' event.
 
       3) server.address(), // { port: 12346, family: 'IPv4', address: '127.0.0.1' }
