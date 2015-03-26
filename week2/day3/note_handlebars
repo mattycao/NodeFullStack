@@ -1,0 +1,64 @@
+handlebars:
+1. Handlebars was made so that developers cannot write a lot of javascript logic inside the template.
+THis helps to keep the templates lean and related strictly to the representation of the data(no business logic).
+Another difference between the Jade and handlebars is that the latter requires full html code.
+
+VARIABLES
+  expression is in {{}}
+
+ITERATION(EACH)
+  each is one of the built-in helpers. It allows you to iterate through object and arrays.
+  Inside the block, we can use the @key fr the objects, and @index for the arrays.
+  In addition, each item is referred to as this.
+  {{#each languages}}
+  <p>{{@index}}.{{this}}</p>
+  {{/each}}
+
+UNESCAPED OUTPUT
+  By default, handlebars escapes values. If you don't want handlebars to escape a value, use the triple curly braces:
+  useful for the html injection
+
+  <a>something<</a>
+
+CONDITIONS(if)
+  if is another built-in helper invoked via the #.
+  {{#if user.admin}}
+    <button class="launch">Launch Spacecraft</button>
+  {{else}}
+    <button class="login"> Log in</button>
+  {{/if}}
+
+UNLESS
+  unless means if not
+
+WITH
+An object with nested properties, use with pass the context.
+
+{{#with user}}
+<p>{{name}}</p>
+  {{#with contact}}
+  <span>Twitter: @{{twitter}}</span>
+  {{/with}}
+  <span>Address: {{address.city}},
+{{/with}}
+{{user.address.state}}</span>
+Then we merge the template with this data. Notice the properties’ names are the same as in the Handlebar
+template, there’s only one reference to the user object:
+{user: {
+   contact: {
+     email: 'hi@azat.co',
+     twitter: 'azat_co'
+   },
+   address: {
+     city: 'San Francisco',
+     state: 'California'
+   },
+   name: 'Azat'
+}}
+
+COMMENTS:
+   To output comments, use regular HTML <!-- and -->. To hide comments in the final output, use {{! and }} or
+{{!-- and --}}.
+
+CUSTOM HELPERS:
+1.

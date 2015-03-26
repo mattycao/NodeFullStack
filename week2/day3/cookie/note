@@ -1,0 +1,5 @@
+Part One:
+Cookie:
+1. httpOnly: true, the client cannot access it from the js. like document.cookie
+2. maxAge is second, and it has highly priority than expires
+

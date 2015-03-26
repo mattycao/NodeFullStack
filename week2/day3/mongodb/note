@@ -1,0 +1,74 @@
+mongodb:
+distributed, based on the content to distribute the data to the different collection(databse)
+easy to parallel scale.
+
+hash can be done in client or server side.
+
+高性能 直接映射
+
+无模式 collection
+
+查询功能非常强大
+
+存数单位是文档
+
+bson特点： 轻量，遍历，
+
+MongoDB Manual:
+Getting Started with MongoDB
+1. Connect to a Database
+   the server runs
+   > mongod
+   connect to a mongod
+   >mongo
+   By default will connect to localhost:27017
+
+2. Select a Database
+   after start, will use the test database by default.
+   >db // report the name of the current database
+   >show dbs  // show the list of databases
+   use mydb   //switch a new database named mydb
+      Note here: mongoDB will not permanently create a database until you insert data tot that database.
+   >help // access help for the mongo shell
+
+3. Create a Collection and Insert Documents
+   >j = {name: 'mongo'}
+   >db.testData.insert(j)
+
+   // This will create an testData collection
+   >show collections
+   >db.testData.find() // confirm the documents exist in the testData collection by querying
+   Then we will see the mongoDB documents have an _id filed with an unique value.
+
+4. Working with the Cursor
+   When you query a collection MongoDB returns a cursor object that contains the results of hte
+   query. THe mongo shell then iterate over the cursor to display the results.
+   Not return the result at once, the shell iterate over 20 times to display the first 20 results.
+   Then press (it) for next set of results.
+   CODE:
+   var c = db.testData.find()
+   while(c.hasNext()) printjson(c.next())
+
+   db.testData.find({x:18}) // return the x is 18 cursor in iteration
+   db.testData.findOne() // this one return the document(row)
+   db.testData.find().limit(3) // limit on the number of the documents in the result
+
+   db.user.find({id:{$gt:2}}).sort({id:1})
+   db.user.find().count();
+   db.user.find().skip()
+
+Chapter 2:
+MongoDB CRUD operations
+1. MongoDB stores data in the form of documents, which is json-like field and value pairs.
+   Formally, MongoDB documents are BSON documents. it is a binary representation of JSON with
+   additional type information. In the documents, the value of a field can be any of the BSON data type.
+
+2. MongoDB stores all documents in collections. A collection is a group of related documents that have a
+set of shared common indexes.
+
+3. Database Operations
+   Query
+      collection query-criteria modifier
+
+   Data Modification
+      db.user.insert( {})
