@@ -1,0 +1,10 @@
+1. main page, register, login, logout, post
+2. State: Not log in:
+
+   main page, register page, logout page
+
+3. State: Log in
+
+   main page, log out, post article
+
+Router:
