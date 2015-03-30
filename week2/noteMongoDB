@@ -1,0 +1,19 @@
+MongoDB:
+Chapter1
+1. Learning website: mongodb.org
+                     doc
+                     mongodb / github
+2. Database:
+   The base which store the data.
+   1. well-organized store the data
+   2. query basic on the requirement
+
+3. SQL database: support SQL database, oracle, Mysql
+   NoSQL: not only SQL, Redis, MongoDB
+
+4. Why MongoDB?
+   No table structure,
+   Total index support  For redis, key-value check, MongoDB support single key, array, content search
+   方便的冗余和扩展
+   良好的支持
+
