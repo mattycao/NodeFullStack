@@ -1,0 +1,15 @@
+What is mongoDB?
+1. nor relation database, for JSON. Javascript Object Notation.
+    schemaless:
+        don't need to have the same schema. Also document oriented.
+
+2. scalability and functionality
+    omit these in order to retain the scalability
+   1. MongoDB doesn't support join.
+   2. No transaction across multiple collections
+
+3. mongo shell:
+    like nodejs, v8 written in c++.
+    a driver in nodejs to connect mongodb.
+
+4. 

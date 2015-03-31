@@ -33,6 +33,8 @@ app.use('/', routes);  // main page
 // inside it is the relative path
 app.use('/users', users);  // user
 
+app.use('/article',article);  // for the article part
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

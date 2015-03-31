@@ -6,7 +6,7 @@ var User = require('../model/user');
 /* GET users listing. */
 router.get('/reg', function (req, res, next) {
     res.render('user/reg', {
-        title: 'Hello Guest',
+        title: 'Person',
         error: req.flash('error') || ''
     });
 });
@@ -29,18 +29,70 @@ router.post('/reg', function (req, res, next) {
         password: password,
         email: email
     });
-    newUser.save(function (err, user) {
+    User.get(username, function (err, user) {
         if (err) {
-            req.flash('error', 'Registration fails! Connect the Builder.');
+            req.flash('error', 'Cannot search UserName from the database. Please contact website Builder.');
             return res.redirect('back');
         } else {
-            req.session.user = user;
-            req.flash('success', 'Registration Success!');
-            res.redirect('/');
-        }
+            if (user) {
+                req.flash('error', 'The UserName you entered already exists! Please change to another one.');
+                return res.redirect('back');
+            } else {
+                newUser.save(function (err, user) {
+                    if (err) {
+                        req.flash('error', 'Registration fails! Connect the Builder.');
+                        return res.redirect('back');
+                    } else {
+                        req.session.username = user.username;
+                        req.flash('success', user.username + ' registered in successfully!');
+                        res.redirect('/');
+                    }
 
+                });
+            }
+
+        }
     });
 
+
+});
+
+router.get('/login', function (req, res, next) {
+    res.render('user/login', {
+        title: 'Person',
+        error: req.flash('error') || ''
+    });
+});
+
+router.get('/logout', function (req, res, next) {
+    req.flash('success', req.session.user + ' already logged out successfully.');
+    req.session.username = null;
+    res.redirect('/');
+});
+
+router.post('/login', function (req, res, next) {
+    var password = crypto.createHash('md5').update(req.body.password).digest('hex');
+    User.get(req.body.username, function (err, user) {
+        if (err) {
+            req.flash('error', 'Cannot search UserName from the database. Please contact website Builder.');
+            return res.redirect('back');
+        } else {
+            if (user) {
+                if (user.password != password) {
+                    req.flash('error', 'The password is not right. Please try again.');
+                    return res.redirect('back');
+                } else {
+                    req.session.username = user.username;
+                    req.flash('success', user.username + ' has logged in successfully!');
+                    res.redirect('/');
+                }
+            } else {
+                req.flash('error', 'UserName doesn\'t exist. Please try again!');
+                res.redirect('back');
+            }
+
+        }
+    });
 });
 
 module.exports = router;

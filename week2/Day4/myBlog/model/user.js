@@ -26,17 +26,26 @@ User.prototype.save = function (callback) {
 
     var newUser = new userModel({
         username: this.username,
-        password:this.password,
-        email:this.email,
-        avatar:avatar
+        password: this.password,
+        email: this.email,
+        avatar: avatar
     });
 
-    newUser.save(function(err, user) {
-        if(err)
+    newUser.save(function (err, user) {
+        if (err)
             callback(err);
         else
             callback(null, user);
     })
+}
+
+User.get = function (username, callback) {
+    userModel.findOne({username: username}, function (err, user) {
+        if (err) return callback(err);
+        else {
+            callback(null, user);
+        }
+    });
 }
 
 module.exports = User;
