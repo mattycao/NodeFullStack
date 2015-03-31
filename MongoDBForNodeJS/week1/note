@@ -12,4 +12,53 @@ What is mongoDB?
     like nodejs, v8 written in c++.
     a driver in nodejs to connect mongodb.
 
-4. 
+4. mongo, client
+   mongod, the server
+   /data/db
+   chmod 777 /data
+   chmod 777 /data/db
+   default port
+
+5. mongo shell:
+   show dbs
+   use test
+   db.things.find() // in the text, find the collection things
+   db.things.insert({'a':1, 'b':2})
+   db.thing.find()
+   the _id is automatically generated.
+   db.things.find({'a':1})
+
+   totally in the javascript environment
+
+6. JSON
+   db.things.save({ a: 1, b:1})
+   db.things.find().pretty()
+   // notice the quote is not necessary
+
+7. asynchronous, synchronous
+   mongo shell is the synchronous
+   but nodejs is asynchronous
+
+8. Hello world MongoDB
+
+    App   nodejs driver |   <-----BSON------> mongodb
+
+9. MongoDB is schemaless
+  in a relational database, if we want add something, we need change the table structure
+  but mongoDB doesn't need
+
+  >var j = db.users.findOne({'name': 'Angular'})
+  >j.favorite_color = 'Blue'
+  >db.users.save(j)
+  Then a new attribute is added into.
+
+10. JSON revisited
+    Two basic a data structures:
+    Array - list of things []
+    Dictionaries - {key - values} associate maps
+
+11. Intro to schema Design
+    to embed or not to embed
+    the embedded  data could not exceed the 16MB document limit within mongodb.
+
+
