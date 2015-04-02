@@ -1,0 +1,28 @@
+<form class="form-horizontal" method="post" action="/users/reg" role="form">
+    <div class="form-group">
+        <lab class="col-md-2 control-label">UserName</lab>
+        <div class="col-md-5"><input class="form-control" type="text" name="username"
+                                     placeholder="Please Enter Your username"/></div>
+    </div>
+    <div class="form-group">
+        <lab class="col-md-2 control-label">Password</lab>
+        <div class="col-md-5"><input class="form-control" type="password" name="password"/></div>
+    </div>
+    <div class="form-group">
+        <lab class="col-md-2 control-label">Re-Password</lab>
+        <div class="col-md-5"><input class="form-control" type="password" name="repassword"/></div>
+    </div>
+    <div class="form-group">
+        <lab class="col-md-2 control-label">Email Address</lab>
+        <div class="col-md-5"><input class="form-control" type="email" name="email"
+                                     placeholder="Please Enter Your Email"/></div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-md-8">
+            <button class="btn btn-primary" type="submit">Register</button>
+        </div>
+    </div>
+    {{#if error}}
+        <div class="alert alert-danger col-md-10" role="alert">Error:&nbsp;{{error}}</div>
+    {{/if}}
+</form>

@@ -1,0 +1,44 @@
+WEEK2: CRUD
+1. crud and the mongo shell
+   CRUD: create -> insert, read -> find, update ->update delete -> remove
+
+   MOngoDB's crud operations exist as methods/functions in programming language APIs,
+   not as a separate language.
+
+2. Secret of the mongo shell:
+    >for(i = 0; i < 3; i++) print(somthing)
+
+    >help
+
+3. BSON:
+   how mongodb represent data.
+
+   document oriented.
+
+   use the binary representation of the data to store
+   NUmberInt(1)
+   NumberLong(1)
+   new Date()
+   BSON has a lot more data type that javascript can support, like floating point number, timestamps or something else.
+
+4. Insert Doc:
+   document, in javascript it is represented as a object.
+   The database has a lot of collections, the collection is like a table in the RDBMS.
+   The collection is a set of documents.
+   >db
+   >db.people.insert(doc)
+   >db.people.find() // all of the doc inside
+     _id: when insert, the server require the doc to have an unique identified field.
+          it is a primary key. And it is imuttable.
+          require the mongodb id to be unique in the collection.
+          If you doesn't fill the _id, the server will generate one and insert it into your document.
+
+5. findOne
+   db.people.findOne()
+   db.people.findOne({name:'John'})
+   db.people.findOne({name:'John'}, {'name': true, '_id':false}) // second one is used for show
+   // the _id will show in default
+
+6. find
+   db.people.find()
+   the server will use the cursor to show, and the cursor by default, it will close in 10 mins.
