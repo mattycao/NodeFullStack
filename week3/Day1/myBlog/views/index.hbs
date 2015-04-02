@@ -4,3 +4,15 @@
 {{#if error}}
     <div class="alert alert-warning col-md-10" role="alert">Warning:&nbsp;{{error}}</div>
 {{/if}}
+<ul class="media-list">
+    {{#each articles}}
+        <a href="#" class="media-left">
+            <img src="{{userId.avatar}}" alt="The user image from avatar"/>
+        </a>
+        <div clas="media-body">
+            <h3><a href="/article/view/{{_id}}">{{title}}</a></h3>
+            <p class="'media-left">{{{content}}}</p>
+        </div>
+    {{/each}}
+
+</ul>

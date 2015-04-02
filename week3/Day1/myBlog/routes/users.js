@@ -43,6 +43,7 @@ router.post('/reg', function (req, res, next) {
                         req.flash('error', 'Registration fails! Connect the Builder.');
                         return res.redirect('back');
                     } else {
+                        req.session.user = user;
                         req.session.username = user.username;
                         req.flash('success', user.username + ' registered in successfully!');
                         res.redirect('/');
@@ -65,9 +66,15 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-    req.flash('success', req.session.user + ' already logged out successfully.');
+    var success =  req.session.username + ' already logged out successfully.';
     req.session.username = null;
-    res.redirect('/');
+    req.session.user = null;
+    res.render('index', {
+        title: 'Person',
+        success: success,
+        error: '',
+        username: ''
+    });
 });
 
 router.post('/login', function (req, res, next) {
@@ -82,6 +89,7 @@ router.post('/login', function (req, res, next) {
                     req.flash('error', 'The password is not right. Please try again.');
                     return res.redirect('back');
                 } else {
+                    req.session.user = user;
                     req.session.username = user.username;
                     req.flash('success', user.username + ' has logged in successfully!');
                     res.redirect('/');
