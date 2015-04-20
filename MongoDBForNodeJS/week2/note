@@ -42,3 +42,54 @@ WEEK2: CRUD
 6. find
    db.people.find()
    the server will use the cursor to show, and the cursor by default, it will close in 10 mins.
+   using the field selection  by examples
+   db.people.find({student:19})
+   db.people.find({student:19}, {'name':true, '_id':false})
+
+7. Querying Using $gt and $lt
+   >db.scores.find({score : {$gt : 95}})
+   the operator is parsed as an json.
+   >db.scores.find({score : {$gt : 95}, type:'essay'})
+   $gt, $gte, $lt, $lte
+
+8. inequalities on strings
+   db.people.find({name:{$lt:'D'}})
+   db.users.find( { name : { $gte : "F" , $lte : "Q" } } );
+   utf-8 unit
+   since it is schemeless, it means that in the same field the data may has different type, mongodb
+   support it but actually not recommanded, so it the different type, the comparison will not be spaned,
+   like if you make it compare a string, only the string value field document will be compared.
+
+9. using the regexes, $exists, $type
+   mongodb can query the document by the structure and type, and of course, the value.
+   field exists:
+   >db.people.find({pro : {$exists: true}});
+   field type:
+   >db.people.find({name: {$type:2}})  // 2 -> string
+   reg exp:
+   >db.people.find({name : {$regex : 'a'}})
+   >db.people.find({name : { $regex : 'a$'}})
+
+10. using $or
+   >db.people.find( { $or : [{name : {$regex: 'e$'}}, {age:{$exists: true}}]});
+   notice: $or is a prefix operator, not like the ones we have seen before.
+   Notice: if you close the bracket wrong, the mongo client will print ... to indicate the
+           your query is wrong, press return again, it will abandon it.
+
+11. using $and
+   >db.people.find({ $and : [{name : {$regex: 'e$'}}, {age:{$exists: true}}]});
+   example:
+    db.scores.find( { score : { $gt : 50 }, score : { $lt : 60 } } );
+     here, when mongodb parse the find, it find two object, which means, it will find all documents
+     with score less 60.
+
+12. Query inside Arrays
+    the mongodb will automatically find the content inside the array, however, it will not recuirsively find
+    inside into a deep level.
+
+13. Using $in, and $all
+    >db.accounts.find({favoriates: {$all : [ 'a', 'b']}})   has a and b,
+    >db.accounts.find({favoriates: {$in : [ 'a', 'b']}})  has a or b,
+
+14. Queries with dot notation
+    >
