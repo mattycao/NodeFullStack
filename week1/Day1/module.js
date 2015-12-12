@@ -8,6 +8,7 @@ console.log(module);
 module.add = function(a, b) {
     return a + b;
 }
+console.log(require.main.filename);
 //
 //Accessing the main module#
 //When a file is run directly from Node, require.main is set to its module. That means that you can determine whether a file has been run directly by testing

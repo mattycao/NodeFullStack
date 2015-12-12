@@ -24,10 +24,10 @@ me.on('new', function() {
 me.emit('new');
 
 
+
 me.once('a', function() {
     console.log('Time');
 });
-
-
 me.emit('a');
+me.emit('new');
 me.emit('a');
