@@ -10,4 +10,3 @@ while(i++ < 100000000){}
 console.timeEnd('a');
 //console.log(global);
 //console.dir(global);
-console.trace();

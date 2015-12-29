@@ -12,7 +12,7 @@ INTRO:
 8. Because of closure, event-driven programming doesn't need to keep the state.
 
 MODULE LOAD:
-1. a core module -> loading a file module(absolute or relative path) -> loading a folder module(first find the main in packjson, if not, find the index.js -> find inside the node_module folder up to the root node module.
+1. a core module -> loading a file module(absolute or relative path) -> loading a folder module(first find the main in packagejson, if not, find the index.js -> find inside the node_module folder up to the root node module.
 2. The module will be cached as the first time when they are loaded.
    require() it is an synchronous function.
 
@@ -27,6 +27,7 @@ REPL:
     var repl = require('repl');
     var server = repl.start({});
     var con = server.context;
+    Note: the context of node is global object.
 
 SCHEDULE:
    1. process.nextTick():
@@ -42,6 +43,7 @@ SCHEDULE:
    And the process.nextTick specify the node event loop.
 
 CONSOLE:
+   Notice: the console.log is a synchronized function, the console.log in chrome is not synchronized function, it is asynchronized.
    1. console.log, call also use as the printf-like way
    2. console.error //print to stderr
    3. console.warn  //same as 2

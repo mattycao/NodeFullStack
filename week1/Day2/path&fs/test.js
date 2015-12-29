@@ -3,3 +3,5 @@
  */
 var os = require('os');
 console.log(os.type());
+var path = require('path');
+console.log(path.join('/foo', '/bar', '/baz/asdf', 'quux', '..'));

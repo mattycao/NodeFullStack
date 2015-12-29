@@ -19,4 +19,5 @@ util.inherits(Ticker, emitter);
 var ex = new Ticker;
 ex.on('tick', function() {
     console.log('Tick');
+    console.log('Tick');
 });

@@ -14,6 +14,7 @@ PATH:
         1) path.resolve('/foo/path', './baz')  // /foo/path/baz
         2) path.resolve('/foo/path', '/temp') // /temp
         3) path.resolve('foo/path', 'temp') // __dirname + '/foo/path/temp
+        the foo/path is a relative path, so in order to get an absolute path, we give it the __dirname
 6. path.isAbsolute(path)
 7. path.relative(from, to)
 8. Here are the methods used to extract the part of path:

@@ -1,7 +1,8 @@
 /**
  * Created by caoyangkaka on 3/17/15.
  */
-require('events').EventEmitter;
+
+//require('events').EventEmitter;
 var util = require('util');
 function Event() {
     //prototype  ->>> Object.prototype
