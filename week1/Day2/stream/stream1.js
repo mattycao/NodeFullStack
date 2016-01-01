@@ -13,6 +13,7 @@ setTimeout(function(){
 out.on('data',function(data){
     // note here, although we didn't specify the encoding mode. buffer + string will trigger the buffer.toString() method to transfer the buffer to string.
     console.log('data:' + data);
+    console.log(data);
 })
 out.on('end',function(){
     console.log('No more Data.');
