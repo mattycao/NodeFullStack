@@ -19,5 +19,5 @@ src.on('end', function() {
     target.on('finish', function(){
         console.log('Finish write: %d bytes.', target.bytesWritten);
     })
-})
+});
 

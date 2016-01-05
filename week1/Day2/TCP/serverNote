@@ -97,3 +97,5 @@ TCP client:
      allowHalfOpen: if true, the socket won't automatically send a FIN packet when the other end of the socket sends a FIN packet. Defaults to false. See 'end' event for more information.
      The connectListener parameter will be added as an listener for the 'connect' event.
 
+**Notice**:
+1. net.Server has the close event, not the end event.
